@@ -8,6 +8,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'fh_snippets.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'main.views.home_page', name='home'),
+    url(r'^snippets/$', 'snippets.views.index', name='snippets'),
+    url(r'^tags/$', 'tags.views.index', name='tags'),
+    url(r'^tree/$', 'tree.views.index', name='tree'),
     url(r'^admin/', include(admin.site.urls)),
 
 )

@@ -20,8 +20,8 @@ class NewVisitorTest(unittest.TestCase):
         links = self.browser.find_elements_by_tag_name('a')
         self.assertTrue(len(links)==3)
         for link in links:     
-            status = request.get(link.get_attribute('href'))
-            self.assertTrue(status == 200)
+            status = requests.get(link.get_attribute('href')).status_code
+            self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))
 if __name__ == '__main__':
     unittest.main()
 
