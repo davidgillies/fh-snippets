@@ -1,8 +1,33 @@
 
 {% extends "base.html" %}
 {% block content %}
-<a href='/snippets/'>Snippets</a>
-<a href='/tags/'>Tags</a>
-<a href='/tree/'>Tree</a>
+<h1>Dashboard</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+<p><a class="btn btn-default" href='/snippets/'>Snippets</a></p>
+</div>
+<div class="col-sm-9">
+<p>Manage your family history snippets, search, filter and display them.</p>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-3">
+<p><a class="btn btn-default" href='/tags/'>Tags</a></p>
+</div>
+<div class="col-sm-9">
+<p>Check what tags belong to which people and snippets.</p>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-3">
+<p><a class="btn btn-default" href='/tree/'>Tree</a></p>
+</div>
+<div class="col-sm-9">
+<p>Check out your tree.</p>
+</div>
+</div>
+</div>
+
 {% endblock %} 
 
