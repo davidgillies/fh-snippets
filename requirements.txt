@@ -1,3 +1,4 @@
 Django==1.6.5
 python-gedcom==0.1dev
+requests==2.3.0
 selenium==2.42.1
