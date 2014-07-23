@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,8 +9,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 		<title>OV Gillies Creations</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
-		<link rel="stylesheet" href="css/ovg_styles.css" type="text/css"/>
+		<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css"/>
+		<link rel="stylesheet" href="{% static "css/ovg_styles.css" %}" type="text/css"/>
 		<meta name="description" content="" />
 		<meta name="author" content="David Gillies" />
 		<!-- fix for mobile issues -->
@@ -24,7 +25,7 @@
 {% block content %}
 {% endblock content %}
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<script src="{% static "js/bootstrap.min.js" %}"></script>
 	</body>
 </html>
 
