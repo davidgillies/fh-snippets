@@ -9,7 +9,7 @@ class Tree(models.Model):
     birth_date = models.CharField(max_length=10, blank=True)
     death_date = models.CharField(max_length=10, blank=True)
     marriages = models.ManyToManyField('self', blank=True, null=True)
-    #parents = models.ForeignKey('self', blank=True, null=True)
+    parents = models.ManyToManyField('self', symmetrical=False, blank=True, null=True)
     notes = models.TextField(blank=True)
     tags = models.ManyToManyField(Tag, blank=True, null=True)
 
