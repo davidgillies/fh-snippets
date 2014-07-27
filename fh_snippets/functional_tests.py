@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 import requests
+import time
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
@@ -47,6 +48,7 @@ class NewVisitorTest(unittest.TestCase):
         birth_year_inputbox.send_keys(Keys.ENTER)
         
         table = self.browser.find_element_by_id('biog_list')
+        time.sleep(10)
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == 'Konterman, Bert, 1976' for row in rows)

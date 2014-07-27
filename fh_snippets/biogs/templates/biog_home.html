@@ -17,8 +17,10 @@
     <input type="text" class="form-control" id="new_biog_birth_year" placeholder="Enter Birth Year">
 </div>
 <button type="submit" class="btn btn-default">Submit</button>
+ {% csrf_token %}
 </form>
 <table class="table" id="biog_list">
+<tr><td>{{new_biog_surname}}, {{new_biog_first_name}}, {{new_biog_birth_year}}</td></tr>
 </table>
 
 {% endblock %} 
