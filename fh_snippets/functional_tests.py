@@ -22,6 +22,38 @@ class NewVisitorTest(unittest.TestCase):
         for link in links:     
             status = requests.get(link.get_attribute('href')).status_code
             self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))
+
+    
+    def test_can_start_a_biog_and_retrieve_it_later(self):
+        self.browser.get('http://localhost:8000/biogs/')
+        first_name_inputbox = self.browser.find_element_by_id('new_biog_first_name')
+        self.assertEqual(
+            first_name_inputbox.get_attribute('placeholder'),
+            'Enter a First Name'
+        )
+        surname_inputbox = self.browser.find_element_by_id('new_biog_surname')
+        self.assertEqual(
+            surname_inputbox.get_attribute('placeholder'),
+            'Enter a Surname'
+        )
+        birth_year_inputbox = self.browser.find_element_by_id('new_biog_birth_year')
+        self.assertEqual(
+            birth_year_inputbox.get_attribute('placeholder'),
+            'Enter Birth Year'
+        )
+        first_name_inputbox.send_keys('Bert')
+        surname_inputbox.send_keys('Konterman')
+        birth_year_inputbox.send_keys('1976')
+        birth_year_inputbox.send_keys(Keys.ENTER)
+        
+        table = self.browser.find_element_by_id('biog_list')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == 'Konterman, Bert, 1976' for row in rows)
+        )
+
+        
+
 if __name__ == '__main__':
     unittest.main()
 

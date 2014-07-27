@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^tags/$', 'tags.views.index', name='tags'),
     url(r'^tree/$', 'tree.views.index', name='tree'),
     url(r'^admin/', include(admin.site.urls)),
-
+    url(r'^biogs/$', 'biogs.views.index', name='biogs'),
 )
