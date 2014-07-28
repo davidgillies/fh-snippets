@@ -48,7 +48,7 @@ class NewVisitorTest(unittest.TestCase):
         birth_year_inputbox.send_keys(Keys.ENTER)
         
         table = self.browser.find_element_by_id('biog_list')
-        time.sleep(10)
+        time.sleep(0)
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == 'Konterman, Bert, 1976' for row in rows)

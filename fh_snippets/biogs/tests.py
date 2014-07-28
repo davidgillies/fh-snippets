@@ -20,15 +20,44 @@ class BiogsIndexTest(TestCase):
         expected_html = render_to_string('biog_home.html')
         self.assertEqual(response.content.decode(), expected_html)
 
+    def test_biogs_index_doesnt_create_items_without_post(self):
+        request = HttpRequest()
+        index(request)
+        self.assertEqual(Biog.objects.count(), 0)
+
     def test_index_can_save_a_POST_request(self):
         request = HttpRequest()
         request.method = 'POST'
         request.POST['new_biog_first_name'] = 'Bert'
         request.POST['new_biog_surname'] = 'Konterman'
         request.POST['new_biog_birth_year'] = '1976'
-        
+       
         response = index(request)
-        self.assertIn('Konterman', response.content.decode())
+
+        self.assertEqual(Biog.objects.count(), 1)
+        new_biog = Biog.objects.first()
+        self.assertEqual(new_biog.birth_year, '1976')
+
+    def test_index_page_redirects_after_POST(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['new_biog_first_name'] = 'Bert'
+        request.POST['new_biog_surname'] = 'Konterman'
+        request.POST['new_biog_birth_year'] = '1976'
+
+        response = index(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/biogs')
+
+    def test_index_displays_all_biogs(self):
+        Biog.objects.create(first_name='David', surname='Gillies', birth_year='1900')
+        Biog.objects.create(first_name='Mrs', surname='Gillies', birth_year='1900')
+        request = HttpRequest()
+        response = index(request)
+
+        self.assertIn('David', response.content.decode())
+        self.assertIn('Mrs', response.content.decode())
 
 class BiogModelTest(TestCase):
     
