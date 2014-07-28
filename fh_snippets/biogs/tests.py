@@ -2,8 +2,9 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
-
 from biogs.views import index
+from biogs.models import Biog
+import time
 
 class BiogsIndexTest(TestCase):
     
@@ -27,6 +28,30 @@ class BiogsIndexTest(TestCase):
         request.POST['new_biog_birth_year'] = '1976'
         
         response = index(request)
-        
         self.assertIn('Konterman', response.content.decode())
 
+class BiogModelTest(TestCase):
+    
+    def test_saving_and_retrieving_items(self):
+        first_biog = Biog()
+        first_biog.first_name = 'David'
+        first_biog.surname = 'Gillies'
+        first_biog.birth_year = '1548'
+        first_biog.notes = 'bla'
+        first_biog.save()
+
+        second_biog = Biog()
+        second_biog.first_name = 'Mrs'
+        second_biog.surname = 'Gillies'
+        second_biog.birth_year = '1936'
+        second_biog.notes = 'bla'
+        second_biog.save()
+
+        saved_biogs = Biog.objects.all()
+        self.assertEqual(saved_biogs.count(), 2)
+
+        first_saved_biog = saved_biogs[0]
+        second_saved_biog = saved_biogs[1]
+        
+        self.assertEqual(first_saved_biog.first_name, 'David')
+        self.assertEqual(second_saved_biog.first_name, 'Mrs')
