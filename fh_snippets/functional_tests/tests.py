@@ -1,10 +1,11 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 import requests
 import time
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3) # givess FF response time
@@ -12,12 +13,12 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def test_dashboard_in_title(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         self.assertIn('Dashboard', self.browser.title)
         # self.fail('Finished') # in to make sure test fails til you finished it.
 
     def test_dashboard_links(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         links = self.browser.find_elements_by_tag_name('a')
         self.assertTrue(len(links)==3)
         for link in links:     
@@ -26,7 +27,7 @@ class NewVisitorTest(unittest.TestCase):
 
     
     def test_can_start_a_biog_and_retrieve_it_later(self):
-        self.browser.get('http://localhost:8000/biogs/')
+        self.browser.get(self.live_server_url+'/biogs/')
         first_name_inputbox = self.browser.find_element_by_id('new_biog_first_name')
         self.assertEqual(
             first_name_inputbox.get_attribute('placeholder'),
