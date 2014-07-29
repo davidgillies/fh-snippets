@@ -82,11 +82,24 @@ class BiogModelTest(TestCase):
 class BiogViewTest(TestCase):
     
     def test_uses_biog_template(self):
-        response = self.client.get('/biogs/biog_view/')
+        biog_ = Biog.objects.create(first_name='Sergio',surname='Porrini',birth_year='1957')
+        biog_.tags.create(tagname='Web Developer',
+                          description='IT job',
+                          tag_type="Occupation"
+                          )
+        response = self.client.get('/biogs/%d' % biog_.id)
         self.assertTemplateUsed(response, 'biog.html')
 
-    def test_biog_returns_correct_html(self):
-        response = self.client.get('/biogs/biog_view/')
+    def test_biog_returns_tags_for_biog(self):
+        biog_ = Biog.objects.create(first_name='Sergio',surname='Porrini',birth_year='1957')
+        biog_.tags.create(tagname='Web Developer',
+                          description='IT job',
+                          tag_type="Occupation"
+                          )
+        response = self.client.get('/biogs/%d' % biog_.id)
+        
+        self.assertContains(response, 'Web Developer')
+        self.assertContains(response, 'Sergio')
         
 
 class NewBiogTest(TestCase):
