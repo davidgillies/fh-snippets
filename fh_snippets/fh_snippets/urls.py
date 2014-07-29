@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^biogs/$', 'biogs.views.index', name='biogs'),
     url(r'^biogs/biog_view/$', 'biogs.views.biog', name='biog'),
+    url(r'^biogs/new/$', 'biogs.views.new_biog', name='new_biog'),
 )

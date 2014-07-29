@@ -2,7 +2,7 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
-from biogs.views import index
+from biogs.views import index, new_biog
 from biogs.models import Biog
 import time
 
@@ -24,31 +24,6 @@ class BiogsIndexTest(TestCase):
         request = HttpRequest()
         index(request)
         self.assertEqual(Biog.objects.count(), 0)
-
-    def test_index_can_save_a_POST_request(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['new_biog_first_name'] = 'Bert'
-        request.POST['new_biog_surname'] = 'Konterman'
-        request.POST['new_biog_birth_year'] = '1976'
-       
-        response = index(request)
-
-        self.assertEqual(Biog.objects.count(), 1)
-        new_biog = Biog.objects.first()
-        self.assertEqual(new_biog.birth_year, '1976')
-
-    def test_index_page_redirects_after_POST(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['new_biog_first_name'] = 'Bert'
-        request.POST['new_biog_surname'] = 'Konterman'
-        request.POST['new_biog_birth_year'] = '1976'
-
-        response = index(request)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/biogs')
 
     def test_index_displays_all_biogs(self):
         Biog.objects.create(first_name='David', surname='Gillies', birth_year='1900')
@@ -102,3 +77,30 @@ class BiogViewTest(TestCase):
     def test_biog_returns_correct_html(self):
         response = self.client.get('/biogs/biog_view/')
         
+
+class NewBiogTest(TestCase):
+    
+    def test_index_can_save_a_POST_request(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['new_biog_first_name'] = 'Bert'
+        request.POST['new_biog_surname'] = 'Konterman'
+        request.POST['new_biog_birth_year'] = '1976'
+       
+        response = new_biog(request)
+
+        self.assertEqual(Biog.objects.count(), 1)
+        new_biog_instance = Biog.objects.first()
+        self.assertEqual(new_biog_instance.birth_year, '1976')
+
+    def test_index_page_redirects_after_POST(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['new_biog_first_name'] = 'Bert'
+        request.POST['new_biog_surname'] = 'Konterman'
+        request.POST['new_biog_birth_year'] = '1976'
+
+        response = new_biog(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/biogs')
