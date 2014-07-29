@@ -1,6 +1,7 @@
 from django.db import models
 from tree.models import Tree, Family
 from tags.models import Tag
+from snippets.models import Snippet
 # Create your models here.
 
 class Biog(models.Model):
@@ -8,7 +9,8 @@ class Biog(models.Model):
     surname = models.CharField(max_length=40)
     birth_year = models.CharField(max_length=4)
     tags = models.ManyToManyField(Tag, blank=True, null=True)
-    tree_members = models.ManyToManyField(Tree, blank=True, null=True)    
+    tree_members = models.ManyToManyField(Tree, blank=True, null=True) 
+    snippets = models.ManyToManyField(Snippet, blank=True, null=True)
     notes = models.TextField(blank=True)
     
     def __str__(self):

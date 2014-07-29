@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>Biogs</h1>
+
+<form action="" method="POST" id="new_biog_form" role="form">
+<div class="form-group">
+    <label for="new_biog_first_name">First Name</label>
+    <input type="text" name="new_biog_first_name" class="form-control" id="new_biog_first_name" placeholder="Enter a First Name">
+</div>
+<div class="form-group">
+    <label for="new_biog_surname">Surname</label>
+    <input type="text" class="form-control" name="new_biog_surname" id="new_biog_surname" placeholder="Enter a Surname">
+</div>
+<div class="form-group">
+    <label for="new_biog_birth_year">Birth Year</label>
+    <input type="text" class="form-control" name="new_biog_birth_year" id="new_biog_birth_year" placeholder="Enter Birth Year">
+</div>
+<button type="submit" class="btn btn-default">Submit</button>
+ {% csrf_token %}
+</form>
+<table class="table" id="biog_list">
+{% for biog in biogs %}
+<tr><td><a href="/biogs/{{biog.id}}">{{biog.surname}}, {{biog.first_name}}, {{biog.birth_year}}</a></td></tr>
+{% endfor  %}
+<!--tr><td>{{new_biog_surname}}, {{new_biog_first_name}}, {{new_biog_birth_year}}</td></tr-->
+</table>
+
+{% endblock %} 
+
