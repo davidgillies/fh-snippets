@@ -84,3 +84,21 @@ class BiogModelTest(TestCase):
         
         self.assertEqual(first_saved_biog.first_name, 'David')
         self.assertEqual(second_saved_biog.first_name, 'Mrs')
+
+    def test_displays_all_biogs(self):
+        Biog.objects.create(first_name='Jorg',surname='Albertz',birth_year='1956')
+        Biog.objects.create(first_name='Erik', surname='Bo Andersen', birth_year='1966')
+        response = self.client.get('/biogs/')
+        
+        self.assertContains(response, 'Albertz')
+        self.assertContains(response, 'Andersen')
+
+class BiogViewTest(TestCase):
+    
+    def test_uses_biog_template(self):
+        response = self.client.get('/biogs/biog_view/')
+        self.assertTemplateUsed(response, 'biog.html')
+
+    def test_biog_returns_correct_html(self):
+        response = self.client.get('/biogs/biog_view/')
+        

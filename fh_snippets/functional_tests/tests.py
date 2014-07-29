@@ -63,6 +63,7 @@ class NewVisitorTest(LiveServerTestCase):
             status = page.status_code
             self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))       
 
+
 if __name__ == '__main__':
     unittest.main()
 
