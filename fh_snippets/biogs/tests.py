@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from biogs.views import index, new_biog
 from biogs.models import Biog
+from tags.models import Tag
 import time
 
 class BiogsIndexTest(TestCase):
@@ -37,11 +38,21 @@ class BiogsIndexTest(TestCase):
 class BiogModelTest(TestCase):
     
     def test_saving_and_retrieving_items(self):
+        Tag.objects.create(tagname='Weaver', 
+                           description='textile industry',
+                           tag_type='Occupation'
+                           )
         first_biog = Biog()
         first_biog.first_name = 'David'
         first_biog.surname = 'Gillies'
         first_biog.birth_year = '1548'
         first_biog.notes = 'bla'
+        first_biog.save()
+        first_biog.tags.add(Tag.objects.first())
+        first_biog.tags.create(tagname='Web Developer',
+                               description='IT job',
+                               tag_type="Occupation"
+                               )
         first_biog.save()
 
         second_biog = Biog()
