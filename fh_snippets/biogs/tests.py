@@ -87,7 +87,8 @@ class BiogViewTest(TestCase):
                           description='IT job',
                           tag_type="Occupation"
                           )
-        response = self.client.get('/biogs/%d' % biog_.id)
+        response = self.client.get('/biogs/%d/' % biog_.id)
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'biog.html')
 
     def test_biog_returns_tags_for_biog(self):
@@ -96,7 +97,7 @@ class BiogViewTest(TestCase):
                           description='IT job',
                           tag_type="Occupation"
                           )
-        response = self.client.get('/biogs/%d' % biog_.id)
+        response = self.client.get('/biogs/%d/' % biog_.id)
         
         self.assertContains(response, 'Web Developer')
         self.assertContains(response, 'Sergio')
@@ -128,3 +129,4 @@ class NewBiogTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/biogs')
+        

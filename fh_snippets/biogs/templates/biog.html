@@ -7,7 +7,22 @@
 {% for tag in biog.tags.all %}
 <p>Tag: {{tag.tagname}}, Description: {{tag.description}}, Type: {{tag.tag_type}}</p>{% endfor %}
 
-</table>
-
+<h2>Tags available</h2>
+<lead>
+Select the tags that match to this biog.
+</lead>
+<form role="form" action="/biogs/{{biog.id}}/add_tags" method="POST">
+{% for tag in tags %}
+{% if tag not in biog.tags.all %}
+<div class="checkbox">
+    <label>
+        <input type="checkbox" name="tag_{{tag.id}}" value="{{tag.id}}"> {{tag.tagname}}
+    </label>
+</div>
+{% endif %}
+{% endfor %}
+{% csrf_token %}
+<button type="submit" class="btn btn-default">Save to biog</button>
+</form>
 {% endblock %} 
 
