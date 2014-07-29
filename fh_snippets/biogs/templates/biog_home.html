@@ -21,7 +21,7 @@
 </form>
 <table class="table" id="biog_list">
 {% for biog in biogs %}
-<tr><td>{{biog.surname}}, {{biog.first_name}}, {{biog.birth_year}}</td></tr>
+<tr><td><a href="/biogs/{{biog.id}}">{{biog.surname}}, {{biog.first_name}}, {{biog.birth_year}}</a></td></tr>
 {% endfor  %}
 <!--tr><td>{{new_biog_surname}}, {{new_biog_first_name}}, {{new_biog_birth_year}}</td></tr-->
 </table>

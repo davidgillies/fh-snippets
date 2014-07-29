@@ -9,6 +9,7 @@ class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3) # givess FF response time
+
     def tearDown(self):
         self.browser.quit()
 
@@ -55,7 +56,12 @@ class NewVisitorTest(LiveServerTestCase):
             any(row.text == 'Konterman, Bert, 1976' for row in rows)
         )
 
-        
+        self.browser.get(self.live_server_url+'/biogs/') 
+        links = self.browser.find_elements_by_tag_name('a')
+        for link in links:
+            page = requests.get(link.get_attribute('href'))
+            status = page.status_code
+            self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))       
 
 if __name__ == '__main__':
     unittest.main()
