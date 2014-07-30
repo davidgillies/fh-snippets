@@ -1,9 +1,14 @@
 
-{% extends "base.html" %}
+{% extends "biog_base.html" %}
 {% block content %}
+<div class="container">
+<div class="container">
 <h1>Biogs</h1>
-
-<form action="/biogs/new/" method="POST" id="new_biog_form" role="form">
+<div class="bs-callout bs-callout-danger">
+<h4>Add a new biog</h4>
+<p>Existing Biogs Below.</p>
+</div>
+<form class="form-inline" action="/biogs/new/" method="POST" name="new_biog_form" id="new_biog_form" role="form">
 <div class="form-group">
     <label for="new_biog_first_name">First Name</label>
     <input type="text" name="new_biog_first_name" class="form-control" id="new_biog_first_name" placeholder="Enter a First Name">
@@ -16,15 +21,19 @@
     <label for="new_biog_birth_year">Birth Year</label>
     <input type="text" class="form-control" name="new_biog_birth_year" id="new_biog_birth_year" placeholder="Enter Birth Year">
 </div>
-<button type="submit" class="btn btn-default">Submit</button>
+<button type="submit" class="btn btn-default">Add Biog</button>
  {% csrf_token %}
 </form>
-<table class="table" id="biog_list">
+</div>
+<div class="container">
+<h2>Existing Biogs</h2>
+<table class="table table-bordered table-hover" id="biog_list">
 {% for biog in biogs %}
 <tr><td><a href="/biogs/{{biog.id}}">{{biog.surname}}, {{biog.first_name}}, {{biog.birth_year}}</a></td></tr>
 {% endfor  %}
 <!--tr><td>{{new_biog_surname}}, {{new_biog_first_name}}, {{new_biog_birth_year}}</td></tr-->
 </table>
-
+</div>
+</div>
 {% endblock %} 
 
