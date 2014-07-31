@@ -9,3 +9,17 @@ background-color: #f7f7f9;
 border: 1px solid #e1e1e8;
 border-radius: 4px;
 }
+
+.row {
+    display: table;
+}
+
+[class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+
+footer {
+margin-top: 50px;
+}

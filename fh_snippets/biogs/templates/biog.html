@@ -5,10 +5,23 @@
 <div class="container">
 <h1>{{biog.surname}}, {{biog.first_name}} <small>{{biog.birth_year}}</small></h1>
 <p class="lead">{{biog.notes}}</p>
-<h2>{{biog.first_name}}'s Tags</h2>
-{% for tag in biog.tags.all %}
-<p>Tag: {{tag.tagname}}, Description: {{tag.description}}, Type: {{tag.tag_type}}</p>{% endfor %}
+<div class="jumbotron">
 
+<h2>{{biog.first_name}}'s Tags</h2>
+<div class="row">
+<div class="col-sm-3">
+
+{% for tag in biog.tags.all %}
+<p>Tag: {{tag.tagname}} <span class="badge">42</span></p>{% endfor %}
+</div>
+<div class="col-sm-9">
+<label for="biog_notes">Notes</label>
+<textarea rows="6" class="form-control" name="biog_notes" id="biog_notes">{{biog.notes}}</textarea>
+</div>
+</div>
+</div>
+
+<div class="jumbotron">
 <div class="row">
 <div class="col-sm-3 highlight">
 <h2>Tags available</h2>
@@ -31,14 +44,14 @@ Select the tags that match to this biog.
 </div>
 <div class="col-sm-6 highlight ">
 <h2>Snippets</h2>
-<p>Snippets relating to selected tags will appear here.</p>
+<lead>Snippets relating to selected tags will appear here.</lead>
 </div>
 <div class="col-sm-3 highlight">
 <h2>Family Members</h2>
-<p>Related Family and Friends appear here.</p>
+<lead>Related Family and Friends appear here.</lead>
 </div>
 </div>
 </div>
-
+</div>
 {% endblock %} 
 
