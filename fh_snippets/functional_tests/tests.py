@@ -1,11 +1,13 @@
-from django.test import StaticLiveServerTestCase
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 import requests
 import time
+import sys
 
-class NewVisitorTest(StaticLiveServerTestCase):
+class NewVisitorTest(LiveServerTestCase):
+            
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3) # givess FF response time
@@ -50,7 +52,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         birth_year_inputbox.send_keys(Keys.ENTER)
         
         table = self.browser.find_element_by_id('biog_list')
-        time.sleep(0)
+        #time.sleep(0)
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == 'Konterman, Bert, 1976' for row in rows)

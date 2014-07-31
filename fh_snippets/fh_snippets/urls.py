@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     #url(r'^biogs/biog_view/$', 'biogs.views.biog', name='biog'),
     url(r'^biogs/new/$', 'biogs.views.new_biog', name='new_biog'),
     url(r'^biogs/(\d+)/add_tags','biogs.views.add_tags', name='add_tag'),
+    url(r'^biogs/(\d+)/add_snippets', 'biogs.views.add_snippets', name='add_snippet'),
     url(r'^biogs/(\d+)/', 'biogs.views.biog', name='biog'),
 )

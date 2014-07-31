@@ -7,11 +7,13 @@ class Tag(models.Model):
     LOCATION = 'loc'
     PERIOD = 'per'
     PERSON = 'ppe'
+    SUBJECT = 'sub'
     TAG_TYPE_CHOICES = (
         (OCCUPATION, 'Occupation'),
         (LOCATION, 'location'),
         (PERIOD, 'Period'),
         (PERSON, 'Person'),
+        (SUBJECT, 'Subject'),
     )
 
     tagname = models.CharField(max_length=200)

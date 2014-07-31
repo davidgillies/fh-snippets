@@ -45,6 +45,31 @@ Select the tags that match to this biog.
 <div class="col-sm-6 highlight ">
 <h2>Snippets</h2>
 <lead>Snippets relating to selected tags will appear here.</lead>
+<h4>{{biog.first_name}}'s Snippets</h4>
+<form action="" method="POST">
+{% for snip in biog.snippets.all %}
+<div class="checkbox">
+    <label>
+        <input type="checkbox" checked name="snip_{{snip.id}}" value="{{snip.id}}"> {{snip.snippet}}
+    </label>
+</div>
+{% csrf_token %}
+{% endfor %}
+</form>
+<h4>Snippets for selected Tags</h4>
+<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
+{% for snip in biog_snips %}
+{% if snip not in biog.snippets.all %}
+<div class="checkbox">
+    <label>
+        <input type="checkbox" name="snip_{{snip.id}}" value="{{snip.id}}"> {{snip.snippet}}
+    </label>
+</div>
+{% endif %}
+{% endfor %}
+<button type="submit" class="btn btn-default">Save to biog</button>
+{% csrf_token %}
+</form>
 </div>
 <div class="col-sm-3 highlight">
 <h2>Family Members</h2>
