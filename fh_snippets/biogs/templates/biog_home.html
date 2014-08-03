@@ -6,7 +6,7 @@
 
 <div class="jumbotron">
 <h2>Add a new biog</h2>
-<form class="form-inline" action="/biogs/new/" method="POST" name="new_biog_form" id="new_biog_form" role="form">
+<form class="form-inline" action="{% url 'new_biog' %}" method="POST" name="new_biog_form" id="new_biog_form" role="form">
 
 {% if messages %} {% for message in messages %}
 <div class="control-group has-warning">
