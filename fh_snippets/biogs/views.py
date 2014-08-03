@@ -4,7 +4,9 @@ from biogs.models import Biog
 from tags.models import Tag
 from snippets.models import Snippet
 from tree.models import Tree 
-
+from django.utils.html import escape
+from django.core.exceptions import ValidationError
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -23,10 +25,16 @@ def biog(request, biog_id):
     return render(request, 'biog.html', {'biog': biog_, 'tags':tags, 'biog_snips': biog_snips,}) 
 
 def new_biog(request):
-    Biog.objects.create(first_name=request.POST.get('new_biog_first_name', ''),
+    biog = Biog.objects.create(first_name=request.POST.get('new_biog_first_name', ''),
                         surname=request.POST.get('new_biog_surname', ''),
                         birth_year=request.POST.get('new_biog_birth_year', '')
                         )    
+    try:
+        biog.full_clean()
+    except ValidationError:
+        biog.delete()
+        messages.add_message(request, messages.INFO,'blank fields are not allowed.')
+        return redirect('/biogs')
     return redirect('/biogs')
 
 def add_tags(request, biog_id):

@@ -7,6 +7,16 @@
 <div class="jumbotron">
 <h2>Add a new biog</h2>
 <form class="form-inline" action="/biogs/new/" method="POST" name="new_biog_form" id="new_biog_form" role="form">
+
+{% if messages %} {% for message in messages %}
+<div class="control-group has-warning">
+      <label class="control-label" for="inputWarning1">WARNING!</label>
+      <div class="controls">
+        <span class="warning">{{message}}</span>
+      </div>
+    </div>
+{% endfor %}
+{% endif %}
 <div class="form-group">
     <label for="new_biog_first_name">First Name</label>
     <input type="text" name="new_biog_first_name" class="form-control" id="new_biog_first_name" placeholder="Enter a First Name">

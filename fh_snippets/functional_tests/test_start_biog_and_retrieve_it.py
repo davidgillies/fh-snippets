@@ -1,10 +1,9 @@
 from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
+from unittest import skip
 import requests
-import time
-import sys
+
 
 class NewVisitorTest(FunctionalTest):
             
@@ -52,7 +51,6 @@ class NewVisitorTest(FunctionalTest):
         birth_year_inputbox.send_keys(Keys.ENTER)
         
         table = self.browser.find_element_by_id('biog_list')
-        #time.sleep(0)
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == 'Konterman, Bert, 1976' for row in rows)
@@ -63,5 +61,6 @@ class NewVisitorTest(FunctionalTest):
         for link in links:
             page = requests.get(link.get_attribute('href'))
             status = page.status_code
-            self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))       
+            self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))
+        
 
