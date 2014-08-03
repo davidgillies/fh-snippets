@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
@@ -6,7 +6,7 @@ import requests
 import time
 import sys
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(FunctionalTest):
             
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -64,10 +64,4 @@ class NewVisitorTest(LiveServerTestCase):
             page = requests.get(link.get_attribute('href'))
             status = page.status_code
             self.assertTrue(status == 200, msg="%s, %s"%(link.text, status))       
-
-
-if __name__ == '__main__':
-    unittest.main()
-
-
 
