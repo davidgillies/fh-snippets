@@ -11,10 +11,10 @@
 {% if messages %} {% for message in messages %}
 <div class="control-group has-warning">
       <label class="control-label" for="inputWarning1">WARNING!</label>
-      <div class="controls">
-        <span class="warning">{{message}}</span>
-      </div>
-    </div>
+<div class="control-group has-error">
+            <span class="help-block">{{ message }}</span>
+        </div>
+</div>
 {% endfor %}
 {% endif %}
 <div class="form-group">
