@@ -12,7 +12,8 @@ class Biog(models.Model):
     tree_members = models.ManyToManyField(Tree, blank=True, null=True) 
     snippets = models.ManyToManyField(Snippet, blank=True, null=True)
     notes = models.TextField(blank=True)
-    
+    families = models.ManyToManyField(Family, blank=True, null=True)   
+ 
     def __str__(self):
         return "%s, %s" % (self.surname, self.first_name)
 
