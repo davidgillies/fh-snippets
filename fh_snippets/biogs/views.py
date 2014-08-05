@@ -55,4 +55,4 @@ def add_snippets(request, biog_id):
             actual_snip = Snippet.objects.get(id=snip_id)
             biog_.snippets.add(actual_snip)
     biog_.save()
-    return redirect('/biogs/%d' % (biog_.id))    
+    return redirect('/biogs/%d/#snippets' % (biog_.id))    

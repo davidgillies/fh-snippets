@@ -1,82 +1,168 @@
-
 {% extends "biog_base.html" %}
 {% block title %}{{biog.first_name}}'s Biog{% endblock %}
 {% block content %}
 <div class="container">
-<h1>{{biog.surname}}, {{biog.first_name}} <small>{{biog.birth_year}}</small></h1>
-<p class="lead">{{biog.notes}}</p>
-<div class="jumbotron">
+	<h1>{{biog.surname}}, {{biog.first_name}} <small>{{biog.birth_year}}</small></h1>
+	<p class="lead">
+		{{biog.notes}}
+	</p>
+	<div class="jumbotron">
 
-<h2>{{biog.first_name}}'s Tags</h2>
-<div class="row">
-<div class="col-sm-3">
+		<h2>{{biog.first_name}}'s Tags</h2>
+		<div class="row">
+			<div class="col-sm-3">
 
-{% for tag in biog.tags.all %}
-<p>Tag: {{tag.tagname}} <span class="badge">42</span></p>{% endfor %}
-</div>
-<div class="col-sm-9">
-<label for="biog_notes">Notes</label>
-<textarea rows="6" class="form-control" name="biog_notes" id="biog_notes">{{biog.notes}}</textarea>
-</div>
+				{% for tag in biog.tags.all %}
+				<p>
+					Tag: {{tag.tagname}} <span class="badge">42</span>
+				</p>
+				{% endfor %}
+			</div>
+			<div class="col-sm-9">
+				<label for="biog_notes">Notes</label>
+				<textarea rows="6" class="form-control" name="biog_notes" id="biog_notes">{{biog.notes}}</textarea>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active">
+				<a role="tab" data-toggle="tab"  href="#tags">Tags</a>
+			</li>
+			<li>
+				<a role="tab"  data-toggle="tab" href="#snippets" >Snippets</a>
+			</li>
+			<li>
+				<a role="tab"  data-toggle="tab" href="#people">People</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tags">
+				<h4>Tags available</h4>
+				<lead>
+					Select the tags that match to this biog.
+				</lead>
+				<form class="form-inline" role="form" action="/biogs/{{biog.id}}/add_tags" method="POST">
+					{% for tag in tags %}
+					{% if tag not in biog.tags.all %}
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="tag_{{tag.id}}" value="{{tag.id}}">
+							{{tag.tagname}} </label>
+					</div>
+					{% endif %}
+					{% endfor %}
+					{% csrf_token %}
+					<button type="submit" class="btn btn-default">
+						Save to biog
+					</button>
+				</form>
+			</div>
+			<div class="tab-pane" id="snippets">
+
+				<h4>Snippets</h4>
+				<lead>
+					Snippets relating to selected tags will appear here.
+				</lead>
+				<h5>{{biog.first_name}}'s Snippets</h5>
+				<div class="row">
+					<div class="col-sm-4">
+						<h5>Snippets Meta</h5>
+					</div>
+					<div class="col-sm-8">
+						<h5>Snippet</h5>
+					</div>
+				</div>
+
+				<div class="row">
+					<form action="" method="POST" class="input-block-level">
+						{% for snip in biog.snippets.all %}
+						<div class="row">
+							<div class="col-sm-4">
+								<p>
+									<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
+									<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
+									<p><strong>Title</strong> {{snip.source_title}}</p>
+									<p><strong>Type</strong> {{snip.source_type}}</p>
+									<p><strong>Notes</strong> {{snip.notes}}</p>
+									</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
+								</p>
+
+							</div>
+							<div class="col-sm-8">
+
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" checked name="snip_{{snip.id}}" value="{{snip.id}}">
+										{{snip.snippet}} </label>
+								</div>
+
+							</div>
+
+							{% endfor %}
+						</div>
+						{% csrf_token %}
+					</form>
+				</div>
+				<div class="row">
+					<h4>Snippets for selected Tags</h4>
+				</div>
+				<div class="row">
+					<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
+						<div class="col-sm-12">
+
+							{% for snip in biog_snips %}
+							{% if snip not in biog.snippets.all %}
+							<div class="row">
+
+								<div class="col-sm-4">
+									<p>
+										<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
+										<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
+										<p><strong>Title</strong> {{snip.source_title}}</p>
+										<p><strong>Type</strong> {{snip.source_type}}</p>
+										<p><strong>Notes</strong> {{snip.notes}}</p>
+										</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
+									</p>
+
+								</div>
+								<div class="col-sm-8">
+
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="snip_{{snip.id}}" value="{{snip.id}}">
+											{{snip.snippet}} </label>
+									</div>
+								</div>
+							</div>
+
+							{% endif %}
+							{% endfor %}
+							{% csrf_token %}
+							<button type="submit" class="btn btn-default">
+								Save to biog
+							</button>
+					</form>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="tab-pane" id="people">
+			<div class="row">
+
+				<h4>Family Members</h4>
+				<lead>
+					Related Family and Friends appear here.
+				</lead>
+
+			</div>
+		</div>
+	</div>
+
 </div>
 </div>
 
-<div class="jumbotron">
-<div class="row">
-<div class="col-sm-3 highlight">
-<h2>Tags available</h2>
-<lead>
-Select the tags that match to this biog.
-</lead>
-<form role="form" action="/biogs/{{biog.id}}/add_tags" method="POST">
-{% for tag in tags %}
-{% if tag not in biog.tags.all %}
-<div class="checkbox">
-    <label>
-        <input type="checkbox" name="tag_{{tag.id}}" value="{{tag.id}}"> {{tag.tagname}}
-    </label>
 </div>
-{% endif %}
-{% endfor %}
-{% csrf_token %}
-<button type="submit" class="btn btn-default">Save to biog</button>
-</form>
-</div>
-<div class="col-sm-6 highlight ">
-<h2>Snippets</h2>
-<lead>Snippets relating to selected tags will appear here.</lead>
-<h4>{{biog.first_name}}'s Snippets</h4>
-<form action="" method="POST">
-{% for snip in biog.snippets.all %}
-<div class="checkbox">
-    <label>
-        <input type="checkbox" checked name="snip_{{snip.id}}" value="{{snip.id}}"> {{snip.snippet}}
-    </label>
-</div>
-{% csrf_token %}
-{% endfor %}
-</form>
-<h4>Snippets for selected Tags</h4>
-<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
-{% for snip in biog_snips %}
-{% if snip not in biog.snippets.all %}
-<div class="checkbox">
-    <label>
-        <input type="checkbox" name="snip_{{snip.id}}" value="{{snip.id}}"> {{snip.snippet}}
-    </label>
-</div>
-{% endif %}
-{% endfor %}
-<button type="submit" class="btn btn-default">Save to biog</button>
-{% csrf_token %}
-</form>
-</div>
-<div class="col-sm-3 highlight">
-<h2>Family Members</h2>
-<lead>Related Family and Friends appear here.</lead>
-</div>
-</div>
-</div>
-</div>
-{% endblock %} 
+{% endblock %}
 
