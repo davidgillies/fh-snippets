@@ -25,6 +25,11 @@ footer {
 margin-top: 50px;
 }
 
+.jumbotron p {
+	font-size: 17px;
+	
+}
+
 // Block level inputs
 .input-block-level {
   display: block;

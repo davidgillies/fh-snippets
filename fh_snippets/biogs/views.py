@@ -24,9 +24,12 @@ def biog(request, biog_id):
     biog_people = []
     for family in biog_.families.all():
         for child in family.children.all():
-            biog_people.append(child)
-        biog_people.append(family.husband)
-        biog_people.append(family.wife)
+            if child not in biog_people:
+                biog_people.append(child)
+        if family.husband not in biog_people:
+            biog_people.append(family.husband)
+        if family.wife not in biog_people:
+            biog_people.append(family.wife)
     families = Family.objects.all()
     tags = Tag.objects.all()
     return render(request, 'biog.html', {'biog': biog_, 'tags':tags, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families}) 
@@ -64,7 +67,7 @@ def add_snippets(request, biog_id):
     biog_.save()
     return redirect('/biogs/%d/#snippets' % (biog_.id))    
 
-def add_people(request, bio_id):
+def add_people(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     for key, value in request.POST.iteritems():
         if key.startswith('tree_'):
@@ -72,6 +75,16 @@ def add_people(request, bio_id):
             actual_tree = Tree.objects.get(id=tree_id)
             biog_.tree_members.add(actual_tree)
     biog_.save()
-    return redirect('/biogs/%d') % (biog_.id)
+    return redirect('/biogs/%d' % (biog_.id))
 
-
+def add_families(request, biog_id):
+    biog_ = Biog.objects.get(id=biog_id)
+    for key, value in request.POST.iteritems():
+        if key.startswith('family_'):
+            family_id = int(value)
+            actual_family = Family.objects.get(id=family_id)
+            if actual_family not in biog_.families.all():
+                biog_.families.add(actual_family)
+                
+    biog_.save()
+    return redirect('/biogs/%d' % (biog_.id))
