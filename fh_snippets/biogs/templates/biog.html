@@ -60,11 +60,7 @@
 			</div>
 			<div class="tab-pane" id="snippets">
 
-				<h4>Snippets</h4>
-				<lead>
-					Snippets relating to selected tags will appear here.
-				</lead>
-				<h5>{{biog.first_name}}'s Snippets</h5>
+				<h4>{{biog.first_name}}'s Snippets</h4>
 				<div class="row">
 					<div class="col-sm-4">
 						<h5>Snippets Meta</h5>
@@ -74,93 +70,93 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row highlight">
 					<form action="" method="POST" class="input-block-level">
 						{% for snip in biog.snippets.all %}
-						<div class="row">
-							<div class="col-sm-4">
-								<p>
-									<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
-									<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
-									<p><strong>Title</strong> {{snip.source_title}}</p>
-									<p><strong>Type</strong> {{snip.source_type}}</p>
-									<p><strong>Notes</strong> {{snip.notes}}</p>
-									</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
-								</p>
 
-							</div>
-							<div class="col-sm-8">
+						<div class="col-sm-4">
+							<p>
+								<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
+								<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
+								<p><strong>Title</strong> {{snip.source_title}}</p>
+								<p><strong>Type</strong> {{snip.source_type}}</p>
+								<p><strong>Notes</strong> {{snip.notes}}</p>
+								</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
+							</p>
 
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" checked name="snip_{{snip.id}}" value="{{snip.id}}">
-										{{snip.snippet}} </label>
-								</div>
-
-							</div>
-
-							{% endfor %}
 						</div>
+						<div class="col-sm-8">
+
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" checked name="snip_{{snip.id}}" value="{{snip.id}}">
+									{{snip.snippet}} </label>
+							</div>
+
+						</div>
+
+						{% endfor %}
+
 						{% csrf_token %}
 					</form>
 				</div>
 				<div class="row">
-					<h4>Snippets for selected Tags</h4>
+					<div class="col-sm-12">
+						<h4>Snippets for selected Tags</h4>
+					</div>
 				</div>
 				<div class="row">
 					<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
-						
 
-							{% for snip in biog_snips %}
-							{% if snip not in biog.snippets.all %}
-							<div class="row">
+						{% for snip in biog_snips %}
+						{% if snip not in biog.snippets.all %}
 
-								<div class="col-sm-4">
-									<p>
-										<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
-										<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
-										<p><strong>Title</strong> {{snip.source_title}}</p>
-										<p><strong>Type</strong> {{snip.source_type}}</p>
-										<p><strong>Notes</strong> {{snip.notes}}</p>
-										</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
-									</p>
+						<div class="col-sm-4">
+							<p>
+								<a href="#" id="snip_{{snip.id}}" class="popovers" data-html="true" rel="popover" data-content="
+								<div class='container'><p><strong>Author</strong> {{snip.author}}</p>
+								<p><strong>Title</strong> {{snip.source_title}}</p>
+								<p><strong>Type</strong> {{snip.source_type}}</p>
+								<p><strong>Notes</strong> {{snip.notes}}</p>
+								</div>" data-original-title="Snippet Meta">{{snip.author}}</a>
+							</p>
 
-								</div>
-								<div class="col-sm-8">
+						</div>
+						<div class="col-sm-8">
 
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" name="snip_{{snip.id}}" value="{{snip.id}}">
-											{{snip.snippet}} </label>
-									</div>
-								</div>
-							
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="snip_{{snip.id}}" value="{{snip.id}}">
+									{{snip.snippet}} </label>
+							</div>
+						</div>
 
-							{% endif %}
-							{% endfor %}
-							{% csrf_token %}
+						{% endif %}
+						{% endfor %}
+						{% csrf_token %}
+						<div class="col-sm-12">
 							<button type="submit" class="btn btn-default">
 								Save to biog
 							</button>
+						</div>
 					</form>
 
 				</div>
-			</div>
-
-		</div>
-		<div class="tab-pane" id="people">
-			<div class="row">
-
-				<h4>Family Members</h4>
-				<lead>
-					Related Family and Friends appear here.
-				</lead>
 
 			</div>
+			<div class="tab-pane" id="people">
+				<div class="row">
+
+					<h4>Family Members</h4>
+					<lead>
+						Related Family and Friends appear here.
+					</lead>
+
+				</div>
+			</div>
 		</div>
+
 	</div>
-
-</div>
 </div>
 
 </div>

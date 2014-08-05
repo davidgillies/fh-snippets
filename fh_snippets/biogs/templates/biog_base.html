@@ -69,6 +69,12 @@
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="{% static "js/bootstrap.min.js" %}"></script>
+				<script>
+			$('a.popovers').on('click', function(e) {e.preventDefault(); return true;});
+			$(function() {
+				$('a.popovers').popover();
+			});
+		</script>
 	</body>
 </html>
 
