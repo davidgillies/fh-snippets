@@ -109,7 +109,7 @@
 				</div>
 				<div class="row">
 					<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
-						<div class="col-sm-12">
+						
 
 							{% for snip in biog_snips %}
 							{% if snip not in biog.snippets.all %}
@@ -134,7 +134,7 @@
 											{{snip.snippet}} </label>
 									</div>
 								</div>
-							</div>
+							
 
 							{% endif %}
 							{% endfor %}
