@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from biogs.models import Biog
 from tags.models import Tag
 from snippets.models import Snippet
-from tree.models import Tree 
+from tree.models import Tree, Family
 from django.utils.html import escape
 from django.core.exceptions import ValidationError
 from django.contrib import messages
@@ -21,8 +21,15 @@ def biog(request, biog_id):
         for snippet in snippets:
             if tag in snippet.tags.all():
                 biog_snips.append(snippet)
+    biog_people = []
+    for family in biog_.families.all():
+        for child in family.children.all():
+            biog_people.append(child)
+        biog_people.append(family.husband)
+        biog_people.append(family.wife)
+    families = Family.objects.all()
     tags = Tag.objects.all()
-    return render(request, 'biog.html', {'biog': biog_, 'tags':tags, 'biog_snips': biog_snips,}) 
+    return render(request, 'biog.html', {'biog': biog_, 'tags':tags, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families}) 
 
 def new_biog(request):
     biog = Biog.objects.create(first_name=request.POST.get('new_biog_first_name', ''),
@@ -56,3 +63,15 @@ def add_snippets(request, biog_id):
             biog_.snippets.add(actual_snip)
     biog_.save()
     return redirect('/biogs/%d/#snippets' % (biog_.id))    
+
+def add_people(request, bio_id):
+    biog_ = Biog.objects.get(id=biog_id)
+    for key, value in request.POST.iteritems():
+        if key.startswith('tree_'):
+            tree_id = int(value)
+            actual_tree = Tree.objects.get(id=tree_id)
+            biog_.tree_members.add(actual_tree)
+    biog_.save()
+    return redirect('/biogs/%d') % (biog_.id)
+
+
