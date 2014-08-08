@@ -31,8 +31,14 @@ def biog(request, biog_id):
         if family.wife not in biog_people:
             biog_people.append(family.wife)
     families = Family.objects.all()
-    tags = Tag.objects.all()
-    return render(request, 'biog.html', {'biog': biog_, 'tags':tags, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families}) 
+    #tags = Tag.objects.all()
+    locations = Tag.objects.filter(tag_type='loc')
+    occupations = Tag.objects.filter(tag_type='occ')
+    periods = Tag.objects.filter(tag_type='per')
+    persons = Tag.objects.filter(tag_type='ppe')
+    subjects = Tag.objects.filter(tag_type='sub')
+    return render(request, 'biog.html', {'biog': biog_, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families, 'locations':locations,'occupations':occupations,
+    'periods':periods, 'persons':persons, 'subjects':subjects}) 
 
 def new_biog(request):
     biog = Biog.objects.create(first_name=request.POST.get('new_biog_first_name', ''),

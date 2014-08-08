@@ -37,3 +37,16 @@ margin-top: 50px;
   min-height: 28px;        // Make inputs at least the height of their button counterpart
   .box-sizing(border-box); // Makes inputs behave like true block-level elements
 }
+
+.tags {
+display: inline;
+}
+
+.tags p {
+padding-top: 5px;
+}
+
+.tags-section {
+padding-top: 10px;
+
+}
