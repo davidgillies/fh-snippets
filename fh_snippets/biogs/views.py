@@ -85,6 +85,10 @@ def add_people(request, biog_id):
 
 def add_families(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
+    families = biog_.families.all()
+    for family in families:
+        biog_.families.remove(family)
+    
     for key, value in request.POST.iteritems():
         if key.startswith('family_'):
             family_id = int(value)
