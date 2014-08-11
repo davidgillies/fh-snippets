@@ -12,9 +12,22 @@
 		<div class="row">
 			<div class="col-sm-5">
 
-				
+<form action="/biogs/{{biog.id}}/remove_tags" method="POST" class="form-inline" role="form">				
 				<p>
-					Tags: {% for tag in biog.tags.all %}{{tag.tagname}} <span class="badge">42</span> {% endfor %}
+					Tags: {% for tag in biog.tags.all %}
+
+                                        <div class="checkbox">
+                                                <label>
+                                                        <input type="checkbox" checked name="tag_{{tag.id}}" value="{{tag.id}}">
+                                                        {{tag.tagname}} </label>
+                                        </div>
+ {% endfor %}
+<div class="tags-section">
+      {% csrf_token %}                                  <button type="submit" class="btn btn-default">
+                                                Save to biog
+                                        </button>
+</div>
+</form>
 				</p>
 				
 			</div>

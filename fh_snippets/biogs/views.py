@@ -94,3 +94,19 @@ def add_families(request, biog_id):
                 
     biog_.save()
     return redirect('/biogs/%d' % (biog_.id))
+
+def remove_tags(request, biog_id):
+    biog_ = Biog.objects.get(id=biog_id)
+    #biog_.tags.all().clear()
+    tags = biog_.tags.all()
+    for tag in tags:
+        biog_.tags.remove(tag)
+    for key, value in request.POST.iteritems():
+        if key.startswith('tag_'):
+            tag_id = int(value)
+            actual_tag = Tag.objects.get(id=tag_id)
+            biog_.tags.add(actual_tag)
+    biog_.save()
+    return redirect('/biogs/%d' % (biog_.id,))
+
+
