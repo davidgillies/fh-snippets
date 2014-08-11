@@ -109,4 +109,15 @@ def remove_tags(request, biog_id):
     biog_.save()
     return redirect('/biogs/%d' % (biog_.id,))
 
-
+def remove_snippets(request, biog_id):
+    biog_ = Biog.objects.get(id=biog_id)
+    snippets = biog_.snippets.all()
+    for snip in snippets:
+        biog_.snippets.remove(snip)
+    for key, value in request.POST.iteritems():
+        if key.startswith('snip_'):
+            snip_id = int(value)
+            actual_snip = Snippet.objects.get(id=snip_id)
+            biog_.snippets.add(actual_snip)
+    biog_.save()
+    return redirect('/biogs/%d' % (biog_.id,))
