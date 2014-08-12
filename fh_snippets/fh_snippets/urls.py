@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from tags.views import TagsIndex
+from tags.views import TagsIndex, TagsDetailView
 from django.contrib import admin
 admin.autodiscover()
 
@@ -9,7 +9,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'main.views.home_page', name='home'),
     url(r'^snippets/$', 'snippets.views.index', name='snippets'),
-    url(r'^tags/$', TagsIndex.as_view(), name='tags'),
+    url(r'^tags/detail/$', TagsDetailView.as_view() ),
+    url(r'^tags/$', TagsIndex.as_view()),
     url(r'^tree/$', 'tree.views.index', name='tree'),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^biogs/$', include('biogs/urls')),

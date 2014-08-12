@@ -11,7 +11,7 @@ from django.contrib import messages
 
 def index(request):
     biogs = Biog.objects.all()
-    return render(request, 'biog_home.html', {'biogs': biogs})
+    return render(request, 'biogs/biog_home.html', {'biogs': biogs})
 
 def biog(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -37,7 +37,7 @@ def biog(request, biog_id):
     periods = Tag.objects.filter(tag_type='per')
     persons = Tag.objects.filter(tag_type='ppe')
     subjects = Tag.objects.filter(tag_type='sub')
-    return render(request, 'biog.html', {'biog': biog_, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families, 'locations':locations,'occupations':occupations,
+    return render(request, 'biogs/biog.html', {'biog': biog_, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families, 'locations':locations,'occupations':occupations,
     'periods':periods, 'persons':persons, 'subjects':subjects}) 
 
 def new_biog(request):
