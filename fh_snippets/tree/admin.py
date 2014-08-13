@@ -3,12 +3,12 @@ from tree.models import Tree, Family
 # Register your models here.
 
 class TreeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('first_name', 'surname', 'birth_date')
 
 admin.site.register(Tree, TreeAdmin)
 
 class FamilyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('husband', 'wife', 'marriage_date')
 
-admin.site.register(Family, admin.ModelAdmin)
+admin.site.register(Family, FamilyAdmin)
 

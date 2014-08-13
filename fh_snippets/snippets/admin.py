@@ -3,7 +3,8 @@ from snippets.models import Snippet
 # Register your models here.
 
 class SnippetAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('author', 'source_title', 'source_type') 
+    search_fields = ['author', 'source_title', 'snippet']
 
 admin.site.register(Snippet, SnippetAdmin)
 
