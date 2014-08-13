@@ -13,8 +13,15 @@ class Tree(models.Model):
     def __str__(self):
         return "%s %s" % (self.first_name, self.surname)
 
+    def full_name(self):
+        return "%s %s" % (self.first_name, self.surname)
+    full_name.admin_order_field = 'surname'
+    full_name.short_description = 'Full Name'
+
     class Meta:
         ordering = ('surname','birth_date',)
+
+    
 
 class Family(models.Model):
     husband = models.ForeignKey(Tree, related_name='hubbie')
