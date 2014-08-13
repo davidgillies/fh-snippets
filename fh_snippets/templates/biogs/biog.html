@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-sm-5">
 
-<form action="/biogs/{{biog.id}}/remove_tags" method="POST" class="form-inline" role="form">				
+<form action="/biogs/{{ biog.id }}/remove_tags" method="POST" class="form-inline" role="form">				
 				<p>
 					Tags: {% for tag in biog.tags.all %}
 
@@ -32,7 +32,7 @@
 				
 			</div>
 			<div class="col-sm-7">
-<form action="/biogs/{{biog.id}}/save_notes" method="POST" role="form">
+<form action="/biogs/{{ biog.id }}/save_notes" method="POST" role="form">
 				<label for="biog_notes">Notes</label>
 				<textarea rows="6" class="form-control" name="biog_notes" id="biog_notes">{{biog.notes}}</textarea>
 <div class="tags-section">
@@ -66,7 +66,7 @@
 				<lead>
 					Select the tags that match to this biog.
 				</lead>
-				<form class="form-inline" role="form" action="/biogs/{{biog.id}}/add_tags" method="POST">
+				<form class="form-inline" role="form" action="/biogs/{{ biog.id }}/add_tags" method="POST">
 <div class="tags-section">
 <p class="tags">locations: </p> 
 					{% for tag in locations %}
@@ -151,7 +151,7 @@
 				</div>
 
 				<div class="row highlight">
-					<form action="/biogs/{{biog.id}}/remove_snippets" method="POST" class="input-block-level">
+					<form action="/biogs/{{biog.id }}/remove_snippets" method="POST" class="input-block-level">
 						{% for snip in biog.snippets.all %}
 
 						<div class="col-sm-4">
@@ -188,7 +188,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<form action="/biogs/{{biog.id}}/add_snippets" method="POST" role="form">
+					<form action="/biogs/{{biog.id }}/add_snippets" method="POST" role="form">
 
 						{% for snip in biog_snips %}
 						{% if snip not in biog.snippets.all %}
@@ -227,7 +227,7 @@
 
 			</div>
 			<div class="tab-pane" id="families">
-				<form action="/biogs/{{biog.id}}/add_families" method="POST" role="form">
+				<form action="/biogs/{{biog.id }}/add_families" method="POST" role="form">
 					{% for family in families %}
 					{% if family in biog.families.all %}
 					<div class="checkbox">
