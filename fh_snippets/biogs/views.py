@@ -62,7 +62,8 @@ def add_tags(request, biog_id):
             actual_tag = Tag.objects.get(id=tag_id)
             biog_.tags.add(actual_tag)
     biog_.save()        
-    return redirect('/biogs/%d/#tags' % (biog_.id,))
+    #return redirect('/biogs/%d/#tags' % (biog_.id,))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#tags')
 
 def add_snippets(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -72,7 +73,8 @@ def add_snippets(request, biog_id):
             actual_snip = Snippet.objects.get(id=snip_id)
             biog_.snippets.add(actual_snip)
     biog_.save()
-    return redirect('/biogs/%d/#snippets' % (biog_.id))    
+    #return redirect('/biogs/%d/#snippets' % (biog_.id))    
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#snippets')
 
 def add_people(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -82,7 +84,8 @@ def add_people(request, biog_id):
             actual_tree = Tree.objects.get(id=tree_id)
             biog_.tree_members.add(actual_tree)
     biog_.save()
-    return redirect('/biogs/%d/#people' % (biog_.id))
+    # return redirect('/biogs/%d/#people' % (biog_.id))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#people')
 
 def add_families(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -98,7 +101,8 @@ def add_families(request, biog_id):
                 biog_.families.add(actual_family)
                 
     biog_.save()
-    return redirect('/biogs/%d/#people' % (biog_.id))
+    # return redirect('/biogs/%d/#people' % (biog_.id))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#people')
 
 def remove_tags(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -112,7 +116,8 @@ def remove_tags(request, biog_id):
             actual_tag = Tag.objects.get(id=tag_id)
             biog_.tags.add(actual_tag)
     biog_.save()
-    return redirect('/biogs/%d/#tags' % (biog_.id,))
+    #return redirect('/biogs/%d/#tags' % (biog_.id,))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#tags')
 
 def remove_snippets(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
@@ -125,7 +130,8 @@ def remove_snippets(request, biog_id):
             actual_snip = Snippet.objects.get(id=snip_id)
             biog_.snippets.add(actual_snip)
     biog_.save()
-    return redirect('/biogs/%d/#snippets' % (biog_.id,))
+    # return redirect('/biogs/%d/#snippets' % (biog_.id,))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#snippets')
 
 
 def save_notes(request, biog_id):
@@ -133,4 +139,5 @@ def save_notes(request, biog_id):
     biog_notes = request.POST.get('biog_notes', '')
     biog_.notes = biog_notes
     biog_.save()
-    return redirect('/biogs/%d' % (biog_.id,)) 
+    # return redirect('/biogs/%d' % (biog_.id,))
+    return HttpResponseRedirect(reverse('biog', args=(biog_.id,))) 
