@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from tags.views import TagsIndex, TagsDetailView
+from biogs.views import BiogView
 from django.contrib import admin
 admin.autodiscover()
 
@@ -14,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^tree/$', 'tree.views.index', name='tree'),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^biogs/$', include('biogs/urls')),
-    url(r'^biogs/$', 'biogs.views.index', name='biogs'),
+    url(r'^biogs/$', BiogView.as_view(), name='biogs'),
     #url(r'^biogs/biog_view/$', 'biogs.views.biog', name='biog'),
     url(r'^biogs/new/$', 'biogs.views.new_biog', name='new_biog'),
     url(r'^biogs/(\d+)/save_notes', 'biogs.views.save_notes', name='save_notes'),

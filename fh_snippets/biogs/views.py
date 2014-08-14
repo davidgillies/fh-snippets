@@ -8,11 +8,14 @@ from tree.models import Tree, Family
 from django.utils.html import escape
 from django.core.exceptions import ValidationError
 from django.contrib import messages
+from django.views import generic
 # Create your views here.
 
-def index(request):
-    biogs = Biog.objects.all()
-    return render(request, 'biogs/biog_home.html', {'biogs': biogs})
+class BiogView(generic.ListView):
+    template_name = 'biogs/biog_home.html'
+    context_object_name = 'biogs'
+    model = Biog
+
 
 def biog(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
