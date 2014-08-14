@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from biogs.models import Biog
 from tags.models import Tag
 from snippets.models import Snippet
@@ -50,8 +51,8 @@ def new_biog(request):
     except ValidationError:
         biog.delete()
         messages.add_message(request, messages.INFO,'blank fields are not allowed.')
-        return redirect('/biogs')
-    return redirect('/biogs')
+        return HttpResponseRedirect(reverse('biogs')) 
+    return HttpResponseRedirect(reverse('biogs')) 
 
 def add_tags(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
