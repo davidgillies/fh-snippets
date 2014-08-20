@@ -1,0 +1,12 @@
+{% extends 'tree/tree_base.html' %}
+{% block content %}
+{{ form.errors }}
+{{ form.non_field_errors }}
+<form action="/tree/upload_file/" method="POST" enctype="multipart/form-data">
+{% csrf_token %} 
+    <label for="upload_file">File: </label>
+    <input id="filename" type="file" name="filename">
+    <input type="text" name="title" id="title" >
+    <input type="submit" value="OK">
+</form>
+{% endblock %}
