@@ -3,13 +3,21 @@ from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from tags.models import Tag
 from biogs.models import Biog
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from tags.serializers import TagSerializer
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
    
+class TagList(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class TagsIndex(ListView):
