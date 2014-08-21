@@ -1,6 +1,10 @@
 from gedcom import Gedcom
 from tree.models import Tree, Family
 
+# Subclass gedcom and add methods to do what I want.
+
+class ExtGed(Gedcom):
+    pass
 
 def do_later():
     for elem in gedcom_file.element_list():
