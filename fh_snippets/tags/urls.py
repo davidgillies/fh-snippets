@@ -17,7 +17,7 @@ from tags import views
 from rest_framework import viewsets, routers
 
 urlpatterns = patterns('',
-    url(r'^$', views.TagList.as_view()),
+    url(r'^$', views.TagList.as_view(), name='tag-list'),
     url(r'^(?P<pk>[0-9]+)/$', views.TagDetail.as_view()),
 #    url(r'^', include(router.urls)),
 #    url(r'^api-auth/$', include('rest_framework.urls', namespace='rest_framework')),

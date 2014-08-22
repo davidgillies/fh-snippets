@@ -5,6 +5,17 @@ from tags.models import Tag
 from biogs.models import Biog
 from rest_framework import viewsets, generics
 from tags.serializers import TagSerializer
+from rest_framework import permissions
+from rest_framework import renderers
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+@api_view(('GET',))
+def api_root(request, format=None):
+    return Response({
+        'tags': reverse('tag-list', request=request, format=format),
+    })
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
@@ -13,11 +24,13 @@ class TagViewSet(viewsets.ModelViewSet):
 class TagList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class TagsIndex(ListView):
