@@ -1,7 +1,7 @@
 from django.test import TestCase
 from snippets.models import Snippet
 
-# Create your tests here.
+
 class SnippetModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
@@ -28,4 +28,3 @@ class SnippetModelTest(TestCase):
         second_saved_snippet = saved_snippets[1]
         self.assertEqual(first_saved_snippet.author, 'David Gillies')
         self.assertEqual(second_saved_snippet.author, 'Mrs Gillies')
-

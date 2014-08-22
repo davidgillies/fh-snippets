@@ -11,16 +11,19 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
         'tags': reverse('tag-list', request=request, format=format),
     })
 
+
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-   
+
+
 class TagList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
@@ -34,10 +37,11 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TagsIndex(ListView):
-    #model = Tag
+    # model = Tag
     queryset = Tag.objects.order_by('tagname')
     context_object_name = 'tag_list'
-    # template_name = "tags/tagdsfsdafas_list.html"    
+    # template_name = "tags/tagdsfsdafas_list.html"
+
 
 class TagsDetailView(DetailView):
     context_object_name = 'tag_list'

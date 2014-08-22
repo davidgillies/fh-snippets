@@ -6,4 +6,3 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
         fields = ('tagname', 'tag_type', 'description')
-

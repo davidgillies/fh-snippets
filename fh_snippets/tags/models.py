@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Tag(models.Model):
     OCCUPATION = 'occ'
@@ -25,4 +24,3 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ('tag_type',)
-
