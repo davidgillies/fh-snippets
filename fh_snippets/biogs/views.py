@@ -9,6 +9,7 @@ from django.utils.html import escape
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.views import generic
+from django.views.decorators.http import require_http_methods
 # Create your views here.
 
 class BiogView(generic.ListView):
@@ -44,6 +45,7 @@ def biog(request, biog_id):
     return render(request, 'biogs/biog.html', {'biog': biog_, 'biog_snips': biog_snips,'biog_people':biog_people,'families':families, 'locations':locations,'occupations':occupations,
     'periods':periods, 'persons':persons, 'subjects':subjects}) 
 
+@require_http_methods(["POST"])
 def new_biog(request):
     biog = Biog.objects.create(first_name=request.POST.get('new_biog_first_name', ''),
                         surname=request.POST.get('new_biog_surname', ''),
@@ -57,6 +59,7 @@ def new_biog(request):
         return HttpResponseRedirect(reverse('biogs')) 
     return HttpResponseRedirect(reverse('biogs')) 
 
+@require_http_methods(["POST"])
 def add_tags(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     for key, value in request.POST.iteritems():
@@ -68,6 +71,7 @@ def add_tags(request, biog_id):
     #return redirect('/biogs/%d/#tags' % (biog_.id,))
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#tags')
 
+@require_http_methods(["POST"])
 def add_snippets(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     for key, value in request.POST.iteritems():
@@ -79,6 +83,7 @@ def add_snippets(request, biog_id):
     #return redirect('/biogs/%d/#snippets' % (biog_.id))    
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#snippets')
 
+@require_http_methods(["POST"])
 def add_people(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     for key, value in request.POST.iteritems():
@@ -90,6 +95,7 @@ def add_people(request, biog_id):
     # return redirect('/biogs/%d/#people' % (biog_.id))
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#people')
 
+@require_http_methods(["POST"])
 def add_families(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     families = biog_.families.all()
@@ -107,6 +113,7 @@ def add_families(request, biog_id):
     # return redirect('/biogs/%d/#people' % (biog_.id))
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#people')
 
+@require_http_methods(["POST"])
 def remove_tags(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     #biog_.tags.all().clear()
@@ -122,6 +129,7 @@ def remove_tags(request, biog_id):
     #return redirect('/biogs/%d/#tags' % (biog_.id,))
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#tags')
 
+@require_http_methods(["POST"])
 def remove_snippets(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     snippets = biog_.snippets.all()
@@ -136,7 +144,7 @@ def remove_snippets(request, biog_id):
     # return redirect('/biogs/%d/#snippets' % (biog_.id,))
     return HttpResponseRedirect(reverse('biog', args=(biog_.id,))+'#snippets')
 
-
+@require_http_methods(["POST"])
 def save_notes(request, biog_id):
     biog_ = Biog.objects.get(id=biog_id)
     biog_notes = request.POST.get('biog_notes', '')
